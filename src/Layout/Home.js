@@ -1,0 +1,32 @@
+import React, { useEffect, useState } from "react";
+import { listDecks } from "../utils/api/index.js";
+import { Link } from "react-router-dom";
+import Deck from "./Deck.js";
+
+function Home() {
+  const [decks, setDecks] = useState([]);
+  useEffect(() => {
+    listDecks().then((data) => {
+      console.log("d: ", data);
+      setDecks(data);
+    });
+  }, []);
+  return (
+    <div>
+      <Link to="/decks/new">
+        <button>Create Deck</button>
+      </Link>
+      <div>
+        {decks?.map((d, i) => {
+          return (
+            <div key={`d-${i}`}>
+              <Deck deck={d} />
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+export default Home;
