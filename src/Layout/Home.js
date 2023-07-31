@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { listDecks } from "../utils/api/index.js";
+import React, { useCallback, useEffect, useState } from "react";
+import { listDecks, readDeck } from "../utils/api/index.js";
 import { Link } from "react-router-dom";
-import Deck from "./Deck.js";
+import { Deck } from "./Deck.js";
 
 function Home() {
   const [decks, setDecks] = useState([]);
   useEffect(() => {
-    listDecks().then((data) => {
-      console.log("d: ", data);
-      setDecks(data);
-    });
+    listDecks().then((data) => setDecks(data));
   }, []);
+
   return (
     <div>
       <Link to="/decks/new">
@@ -20,7 +18,7 @@ function Home() {
         {decks?.map((d, i) => {
           return (
             <div key={`d-${i}`}>
-              <Deck deck={d} />
+              <Deck deck={d} deckId={i + 1} />
             </div>
           );
         })}
