@@ -9,7 +9,7 @@ function Home() {
   };
   useEffect(() => loadDecks(), []);
   const deckDeleteHandler = (deckToDelete) => {
-    const result = window.confirm("Are you sure you want to delete this card");
+    const result = window.confirm("Are you sure you want to delete this deck");
     if (result) {
       deleteDeck(deckToDelete).then(loadDecks());
     }
