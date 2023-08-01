@@ -1,13 +1,19 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { listDecks, readDeck } from "../utils/api/index.js";
+import React, { useEffect, useState } from "react";
+import { deleteDeck, listDecks } from "../utils/api/index.js";
 import { Link } from "react-router-dom";
-import { Deck } from "./Deck.js";
 
 function Home() {
   const [decks, setDecks] = useState([]);
-  useEffect(() => {
-    listDecks().then((data) => setDecks(data));
-  }, []);
+  const loadDecks = () => {
+    listDecks().then(setDecks);
+  };
+  useEffect(() => loadDecks(), []);
+  const deckDeleteHandler = (deckToDelete) => {
+    const result = window.confirm("Are you sure you want to delete this card");
+    if (result) {
+      deleteDeck(deckToDelete).then(loadDecks());
+    }
+  };
 
   return (
     <div>
@@ -15,10 +21,21 @@ function Home() {
         <button>Create Deck</button>
       </Link>
       <div>
-        {decks?.map((d, i) => {
+        {decks?.map((deck, i) => {
           return (
-            <div key={`d-${i}`}>
-              <Deck deck={d} deckId={i + 1} />
+            <div key={`deck index: ${i}`}>
+              <h1>
+                {deck.name}{" "}
+                <span className="float-right">{deck.cards.length} Cards</span>
+              </h1>
+              <p>{deck.description}</p>
+              <Link to={`/decks/${deck.id}`}>
+                <button>View</button>
+              </Link>
+              <Link to={`/decks/${deck.id}/study`}>
+                <button>Study</button>
+              </Link>
+              <button onClick={() => deckDeleteHandler(deck.id)}>Trash</button>
             </div>
           );
         })}
