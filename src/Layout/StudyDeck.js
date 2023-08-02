@@ -73,6 +73,21 @@ function StudyDeck() {
 
   return (
     <div>
+      <nav aria-label="breadcrumb">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <Link to="/">
+              <span className="oi oi-home"></span> Home
+            </Link>
+          </li>
+          <li className="breadcrumb-item">
+            <Link to={`/decks/${deck.id}`}>{deck.name}</Link>
+          </li>
+          <li className="breadcrumb-item active" aria-current="page">
+            Study
+          </li>
+        </ol>
+      </nav>
       <h1>{deck.name}: Study</h1>
       <div>
         {flipFront ? (

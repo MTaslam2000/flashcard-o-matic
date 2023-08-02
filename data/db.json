@@ -11,9 +11,9 @@
       "id": 2
     },
     {
-      "name": "dsfsdfsd",
-      "description": "fsdfsdfsdf",
-      "id": 3
+      "id": 3,
+      "name": "Edited Name",
+      "description": "Edited Description"
     }
   ],
   "cards": [
