@@ -7,6 +7,7 @@ function StudyDeck() {
   const [cards, setCards] = useState([]);
   const [flipFront, setFlipFront] = useState(true);
   const { deckId } = useParams();
+  const [currentIndex, setCurrentIndex] = useState(0); // Track the current card index
 
   const flipCardHandler = () => setFlipFront(!flipFront);
 
@@ -18,20 +19,27 @@ function StudyDeck() {
   };
   useEffect(() => loadDeck(), [deckId]);
 
+  const nextCardHandler = () => {
+    // Increment the current index, and reset to 0 if it reaches the end of the cards
+    setCurrentIndex((prevIndex) =>
+      prevIndex + 1 < cards.length ? prevIndex + 1 : 0
+    );
+    // Reset the card to show the front when moving to the next card
+    setFlipFront(true);
+  };
+
+  if (cards.length === 0) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       You are studying this deck
       <div>
-        {cards.map((c, i) =>
-          flipFront ? (
-            <div onClick={flipCardHandler} key={`card front index ${i}`}>
-              {c.front}
-            </div>
-          ) : (
-            <div onClick={flipCardHandler} key={`card back index ${i}`}>
-              {c.back}
-            </div>
-          )
+        {flipFront ? (
+          <div>{cards[currentIndex].front}</div>
+        ) : (
+          <div>{cards[currentIndex].back}</div>
         )}
         <button
           type="button"
@@ -39,6 +47,13 @@ function StudyDeck() {
           onClick={flipCardHandler}
         >
           Flip
+        </button>
+        <button
+          type="button"
+          className="btn btn-primary mr-2"
+          onClick={nextCardHandler}
+        >
+          Next
         </button>
       </div>
     </div>
