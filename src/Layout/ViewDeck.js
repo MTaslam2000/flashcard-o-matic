@@ -34,7 +34,7 @@ function ViewDeck() {
           <ol className="breadcrumb">
             <li className="breadcrumb-item">
               <Link to="/">
-                <span></span> Home
+                <span className="oi oi-home"></span> Home
               </Link>
             </li>
             <li className="breadcrumb-item active">{deck.name}</li>

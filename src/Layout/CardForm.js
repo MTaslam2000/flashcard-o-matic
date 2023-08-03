@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
-import { createCard } from "../utils/api/index.js";
+import {
+  createCard,
+  readCard,
+  readDeck,
+  updateCard,
+} from "../utils/api/index.js";
 
 function CardForm({ whenSubmitted }) {
   const { deckId, cardId } = useParams();
@@ -19,8 +24,32 @@ function CardForm({ whenSubmitted }) {
     console.log(target.value);
   };
 
+  useEffect(() => {
+    readDeck(deckId);
+    if (whenSubmitted === "edit") {
+      readCard(cardId).then((card) => {
+        setCard(card);
+        setFormData({
+          front: card.front,
+          back: card.back,
+        });
+      });
+    }
+  }, [deckId]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (whenSubmitted === "edit") {
+      const editedCard = {
+        id: cardId,
+        front: formData.front,
+        back: formData.back,
+        deckId: Number(deckId),
+      };
+
+      updateCard(editedCard).then(() => history.push(`/decks/${deckId}`));
+    }
 
     if (whenSubmitted === "add") {
       e.preventDefault();
@@ -64,7 +93,9 @@ function CardForm({ whenSubmitted }) {
       <Link to="/">
         <button type="button">Cancel</button>
       </Link>
-      <button type="submit">Submit</button>
+      <button type="submit">
+        {whenSubmitted === "edit" ? "Save Changes" : "Submit"}
+      </button>
     </form>
   );
 }
