@@ -4,14 +4,17 @@ import { Link } from "react-router-dom";
 
 function Home() {
   const [decks, setDecks] = useState([]);
+
   const loadDecks = () => {
     listDecks().then(setDecks);
   };
-  useEffect(() => loadDecks(), []);
+
+  useEffect(loadDecks, []);
+
   const deckDeleteHandler = (deckToDelete) => {
     const result = window.confirm("Are you sure you want to delete this deck");
     if (result) {
-      deleteDeck(deckToDelete).then(loadDecks());
+      deleteDeck(deckToDelete).then(loadDecks);
     }
   };
 
@@ -26,7 +29,7 @@ function Home() {
             <div key={`deck index: ${i}`}>
               <h1>
                 {deck.name}{" "}
-                <span className="float-right">{deck.cards.length} Cards</span>
+                <span className="float-right">{deck.cards.length} cards</span>
               </h1>
               <p>{deck.description}</p>
               <Link to={`/decks/${deck.id}`}>
@@ -35,7 +38,7 @@ function Home() {
               <Link to={`/decks/${deck.id}/study`}>
                 <button>Study</button>
               </Link>
-              <button onClick={() => deckDeleteHandler(deck.id)}>Trash</button>
+              <button onClick={() => deckDeleteHandler(deck.id)}>Delete</button>
             </div>
           );
         })}

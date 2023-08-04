@@ -3,6 +3,7 @@ import { readDeck } from "../utils/api/index.js";
 import { Link, useParams, useHistory } from "react-router-dom";
 
 function StudyDeck() {
+  const history = useHistory();
   const [deck, setDeck] = useState({ cards: [] });
   const [cards, setCards] = useState([]);
   const [flipFront, setFlipFront] = useState(true);
@@ -31,9 +32,15 @@ function StudyDeck() {
 
   const restartHandler = () => {
     // Reset the current index and the card flip state to start over
-    setCurrentIndex(0);
-    setFlipFront(true);
-    setIsFinished(false);
+    const result = window.confirm("Restart cards?");
+    if (result) {
+      setCurrentIndex(0);
+      setFlipFront(true);
+      setIsFinished(false);
+    } else {
+      history.push("/");
+    }
+    // if the if statement above is true then restart the deck if not then redirect to home page
   };
 
   if (cards.length <= 2) {

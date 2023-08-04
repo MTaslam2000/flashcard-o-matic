@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { deleteCard, deleteDeck, readDeck } from "../utils/api/index.js";
 
@@ -7,25 +7,38 @@ function ViewDeck() {
   const [deck, setDeck] = useState({ cards: [] });
   const { deckId } = useParams();
   const loadDeck = () => readDeck(deckId).then(setDeck);
-  useEffect(() => loadDeck(), [deckId]);
-  const deleteThisDeckHandler = (deckId) => {
-    const result = window.confirm(
-      "Delete this deck? You will not be able to recover it."
-    );
-    if (result) {
-      deleteDeck(deckId).then(history.push("/"));
-    }
-  };
+  useEffect(() => {
+    let isLoaded = true;
+    loadDeck();
+    return () => {
+      // cancel the subscription
+      isLoaded = false;
+    };
+  }, [deck]);
+  const deleteThisDeckHandler = useCallback(
+    (deckId) => {
+      const result = window.confirm(
+        "Delete this deck? You will not be able to recover it."
+      );
+      if (result) {
+        deleteDeck(deckId).then(history.push("/"));
+      }
+    },
+    [deck]
+  );
 
-  const deleteThisCardHandler = (cardId) => {
-    const result = window.confirm(
-      "Delete this card? You will not be able to recover it."
-    );
-    if (result) {
-      deleteCard(cardId);
-      readDeck(deckId).then(setDeck);
-    }
-  };
+  const deleteThisCardHandler = useCallback(
+    (cardId) => {
+      const result = window.confirm(
+        "Delete this card? You will not be able to recover it."
+      );
+      if (result) {
+        deleteCard(cardId);
+        readDeck(deckId).then(setDeck);
+      }
+    },
+    [deck]
+  );
 
   return (
     <>
@@ -53,7 +66,10 @@ function ViewDeck() {
           Study
         </Link>
         <Link
-          to={`/decks/${deck.id}/cards/new`}
+          to={{
+            pathname: `/decks/${deck.id}/cards/new`,
+            state: { deck: deck },
+          }}
           className="btn btn-primary mr-2"
         >
           <span className="oi oi-pencil"></span>

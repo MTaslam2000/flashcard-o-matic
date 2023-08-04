@@ -35,7 +35,7 @@ function CardForm({ whenSubmitted }) {
         });
       });
     }
-  }, [deckId]);
+  }, [deckId, cardId]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -90,7 +90,7 @@ function CardForm({ whenSubmitted }) {
           value={formData.back}
         />
       </div>
-      <Link to="/">
+      <Link to={`/decks/${deckId}`}>
         <button type="button">Cancel</button>
       </Link>
       <button type="submit">

@@ -21,7 +21,10 @@ function EditDeck() {
   };
 
   const loadDeck = () => {
-    readDeck(deckId).then(setDeck);
+    readDeck(deckId).then((data) => {
+      setDeck(data);
+      setFormData(data);
+    });
   };
   useEffect(loadDeck, [deckId]);
 

@@ -7,9 +7,11 @@ function EditCard() {
   const { deckId, cardId } = useParams();
   const [deck, setDeck] = useState({ cards: [] });
 
-  useEffect(() => readDeck(deckId).then(setDeck), [deckId, cardId]);
+  useEffect(() => {
+    readDeck(deckId).then(setDeck);
+  }, [deckId, cardId]);
   return (
-    <>
+    <div>
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
@@ -27,7 +29,7 @@ function EditCard() {
       </nav>
       <h1>Edit Card</h1>
       <CardForm whenSubmitted="edit" />
-    </>
+    </div>
   );
 }
 
