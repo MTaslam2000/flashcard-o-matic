@@ -91,10 +91,10 @@ function CardForm({ whenSubmitted }) {
         />
       </div>
       <Link to={`/decks/${deckId}`}>
-        <button type="button">Cancel</button>
+        <button type="button">Done</button>
       </Link>
       <button type="submit">
-        {whenSubmitted === "edit" ? "Save Changes" : "Submit"}
+        {whenSubmitted === "edit" ? "Save Changes" : "Save"}
       </button>
     </form>
   );

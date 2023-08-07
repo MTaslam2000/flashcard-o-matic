@@ -70,6 +70,18 @@
       "back": "dsadasd",
       "deckId": 3,
       "id": 11
+    },
+    {
+      "front": "new",
+      "back": "new",
+      "deckId": 3,
+      "id": 12
+    },
+    {
+      "front": "Another card",
+      "back": "another card back",
+      "deckId": 3,
+      "id": 13
     }
   ]
 }
