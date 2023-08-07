@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import NotFound from "./NotFound";
 import { listDecks } from "../utils/api/index.js";
@@ -12,6 +12,15 @@ import AddCard from "./AddCard.js";
 import EditCard from "./EditCard.js";
 
 function Layout() {
+  const [decks, setDecks] = useState([]);
+
+  const loadDecks = () => {
+    listDecks().then(setDecks);
+  };
+
+  // const loadDecks = () => {
+  //   listDecks().then(setDecks);
+  // };
   return (
     <>
       <Header />
@@ -19,7 +28,7 @@ function Layout() {
         {/* TODO: Implement the screen starting here */}
         <Switch>
           <Route exact path="/">
-            <Home />
+            <Home decks={decks} setDecks={setDecks} loadDecks={loadDecks} />
           </Route>
           <Route exact path="/decks/new">
             <CreateDeck />

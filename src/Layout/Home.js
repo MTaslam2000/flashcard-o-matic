@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { deleteDeck, listDecks } from "../utils/api/index.js";
 import { Link } from "react-router-dom";
 
-function Home() {
-  const [decks, setDecks] = useState([]);
+function Home({ decks, setDecks, loadDecks }) {
+  // const [decks, setDecks] = useState([]);
 
-  const loadDecks = () => {
-    listDecks().then(setDecks);
-  };
+  // const loadDecks = () => {
+  //   listDecks().then(setDecks);
+  // };
 
   useEffect(loadDecks, []);
 

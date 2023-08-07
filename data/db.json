@@ -12,8 +12,8 @@
     },
     {
       "id": 3,
-      "name": "NEW NAME",
-      "description": "NEW DESCRIPTION"
+      "name": "NEW NAdasME",
+      "description": "NEW DESCRIPTIOdasN"
     }
   ],
   "cards": [
@@ -78,10 +78,16 @@
       "id": 12
     },
     {
-      "front": "Another card",
-      "back": "another card back",
+      "id": 13,
+      "front": "Another cardasdasa",
+      "back": "another card backsdasd",
+      "deckId": 3
+    },
+    {
+      "front": "das",
+      "back": "asd",
       "deckId": 3,
-      "id": 13
+      "id": 14
     }
   ]
 }
