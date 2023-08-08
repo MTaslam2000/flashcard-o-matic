@@ -90,7 +90,7 @@ function CardForm({ whenSubmitted }) {
           value={formData.back}
         />
       </div>
-      <Link to={`/decks/${deckId}`}>
+      <Link to={`/`}>
         <button type="button">Done</button>
       </Link>
       <button type="submit">

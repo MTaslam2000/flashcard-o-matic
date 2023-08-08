@@ -5,7 +5,9 @@ import CardForm from "./CardForm.js";
 
 function AddCard() {
   const location = useLocation();
-  // const { deck } = location.state; This is another way to pass props i dont know why its not passing the test
+  // const { deck } = location.state;
+  // const { setDeck } = location.setDeck;
+  // line 7 line 8 and line 9 is another way to pass props i dont know why its not passing the test
   const { deckId } = useParams();
   const [deck, setDeck] = useState({ cards: [] });
 

@@ -69,6 +69,7 @@ function ViewDeck() {
           to={{
             pathname: `/decks/${deck.id}/cards/new`,
             state: { deck: deck },
+            setDeck: { setDeck, setDeck },
           }}
           className="btn btn-primary mr-2"
         >
